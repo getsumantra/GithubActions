@@ -4,10 +4,10 @@ on:
       - main
       - feature/*
 
-  jobs: 
-    terraformInitJob:
-      name: My first Job
-      runs-on: runner
-      steps:
-        - name: terrafomInit
-          run: echo Hello world
+jobs: 
+  terraformInitJob:
+    name: My first Job
+    runs-on: runner
+    steps:
+    - name: terrafomInit
+      run: echo Hello world
