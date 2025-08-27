@@ -1,0 +1,2 @@
+name: "dhondhu"
+on: push         #Kisi branch me push kro pipline chlegi
