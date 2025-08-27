@@ -3,4 +3,8 @@ on:
     branches: 
       - main
       - feature/*
-  
+
+  jobs: 
+    terraformInitJob:
+      name: My first Job
+      runs-on: 
