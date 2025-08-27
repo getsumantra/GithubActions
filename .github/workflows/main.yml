@@ -1,2 +1,6 @@
-name: "dhondhu"
-on: push         #Kisi branch me push kro pipline chlegi
+on: 
+  push:
+    branches: 
+      - main
+      - feature/*
+  
