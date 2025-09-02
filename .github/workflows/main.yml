@@ -7,7 +7,7 @@ on:
 jobs: 
   terraformInitJob:
     name: My first Job
-    runs-on: runner01
+    runs-on: self-hosted
     steps:
     - name: terrafomInit
       run: echo Hello world
