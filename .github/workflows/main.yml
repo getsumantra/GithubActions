@@ -7,7 +7,7 @@ on:
 jobs: 
   terraformInitJob:
     name: My first Job
-    runs-on: runner
+    runs-on: runner01
     steps:
     - name: terrafomInit
       run: echo Hello world
