@@ -9,10 +9,14 @@ jobs:
     name: My first Job
     runs-on: self-hosted
     steps:
+    - name: Checkout
+      uses: actions/checkout@v5.0.0
+   
     - name: Terraform installer
       uses: autero1/action-terraform@v3.0.1
       with:
         version: 1.13.0
+        
     - name: Azure Login
       uses: Azure/login@v2.3.0
       with:
