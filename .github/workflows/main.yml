@@ -13,6 +13,10 @@ jobs:
     name: Build Stage
     runs-on: self-hosted
     steps:
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.1.7"
+        
     - name: Checkout
       uses: actions/checkout@v5.0.0
         
