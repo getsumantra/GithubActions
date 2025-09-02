@@ -10,7 +10,7 @@ permissions:
 
 jobs: 
   terraformInitJob:
-    name: My first Job
+    name: Build Stage
     runs-on: self-hosted
     steps:
     - name: Checkout
@@ -23,6 +23,11 @@ jobs:
         tenant-id: b24a5be3-6852-43c6-b00e-086d16b535ab
         subscription-id: 258a8e61-bb4a-4a2e-99d2-ca7211e4a421
 
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true
+      
     - name: Terraform Init
       id: init
       run: terraform init -input=false
