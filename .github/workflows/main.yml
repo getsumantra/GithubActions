@@ -35,16 +35,18 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init 
-      # working-directory: 
+      working-directory: infra 
       
     - name: Terraform Validate
       id: validate
-      run: terraform validate 
+      run: terraform validate
+      working-directory: infra
     
     - name: Terraform Plan
       id: plan
       run: terraform plan 
       continue-on-error: true
+      working-directory: infra
 
   terraform-apply:
     needs: terraform-init-plan
@@ -74,8 +76,10 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
+      working-directory: infra
 
     - name: Terraform Apply
       id: apply
       run: terraform apply -auto-approve
+      working-directory: infra
 
