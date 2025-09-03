@@ -17,15 +17,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5.0.0
-    - name: Install Terraform
-      uses: little-core-labs/install-terraform@v2.0.0
-      
-    - name: Azure Login
-      uses: Azure/login@v2.3.0
+
+    - name: Azure Login via OIDC
+      uses: azure/login@v2.3.0
       with: 
-           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -33,17 +31,14 @@ jobs:
         terraform_version: 1.6.6
 
     - name: Terraform Init
-      id: init
       run: terraform init 
       working-directory: dev/infra 
-      
+
     - name: Terraform Validate
-      id: validate
       run: terraform validate
       working-directory: dev/infra
     
     - name: Terraform Plan
-      id: plan
       run: terraform plan 
       continue-on-error: true
       working-directory: dev/infra
@@ -58,28 +53,23 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5.0.0
-    - name: Install Terraform
-      uses: little-core-labs/install-terraform@v2.0.0
 
-    - name: Azure Login
-      uses: Azure/login@v2.3.0
+    - name: Azure Login via OIDC
+      uses: azure/login@v2.3.0
       with: 
-           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.6.6
 
     - name: Terraform Init
-      id: init
       run: terraform init
       working-directory: dev/infra
 
     - name: Terraform Apply
-      id: apply
       run: terraform apply -auto-approve
       working-directory: dev/infra
-
