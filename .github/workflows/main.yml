@@ -46,6 +46,7 @@ jobs:
         working-directory: ./dev/infra
         
   deployStage_Job:
+    needs: buildStage_Job
     name: Deploy Stage
     runs-on: runner
     steps: 
