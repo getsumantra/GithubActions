@@ -50,6 +50,13 @@ jobs:
     name: Deploy Stage
     runs-on: runner
     steps: 
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: 27a1ee5a-8674-4ee7-8991-630cdd3feb1b
+        tenant-id: b24a5be3-6852-43c6-b00e-086d16b535ab
+        subscription-id: 258a8e61-bb4a-4a2e-99d2-ca7211e4a421
+        
     - name: Terraform Init
       id: init
       working-directory: ./dev/infra
