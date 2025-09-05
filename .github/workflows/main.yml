@@ -36,9 +36,28 @@ jobs:
         id: validate
         run: terraform validate -no-color
         working-directory: ./dev/infra
+
+
   
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
         continue-on-error: true
         working-directory: ./dev/infra
+        
+  deployStage_Job:
+    name: Deploy Stage
+    runs-on: runner
+    steps: 
+    - name: Terraform Init
+      id: init
+      working-directory: ./dev/infra
+      run: terraform init -input=false
+
+    - name: Terraform apply
+      id: apply
+      working-directory: ./dev/infra
+      run: terraform apply -auto-approve
+
+    
+        
