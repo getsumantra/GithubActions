@@ -1,0 +1,11 @@
+variable "lb_name" {}
+variable "location" {}
+variable "rg_name" {}
+variable "pip_name" {}
+variable "backend_pool_name" {}
+variable "protocol" {}
+variable "frontend_port" {}
+variable "backend_port" {}
+variable "ip_configuration_name" {}
+variable "probe_name" {}
+variable "probe_port" {}
