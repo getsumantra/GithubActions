@@ -1,0 +1,71 @@
+name: infraBastion
+on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs: 
+  buildStage_Job:
+    name: Build Stage
+    runs-on: runner
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: 27a1ee5a-8674-4ee7-8991-630cdd3feb1b
+          tenant-id: b24a5be3-6852-43c6-b00e-086d16b535ab
+          subscription-id: 258a8e61-bb4a-4a2e-99d2-ca7211e4a421
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+        working-directory: ./dev/infra
+  
+      - name: Terraform Init
+        id: init
+        working-directory: ./dev/infra
+        run: terraform init -input=false
+        
+  
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ./dev/infra
+
+
+  
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        working-directory: ./dev/infra
+        
+  deployStage_Job:
+    needs: buildStage_Job
+    name: Deploy Stage
+    runs-on: runner
+    steps: 
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: 27a1ee5a-8674-4ee7-8991-630cdd3feb1b
+        tenant-id: b24a5be3-6852-43c6-b00e-086d16b535ab
+        subscription-id: 258a8e61-bb4a-4a2e-99d2-ca7211e4a421
+        
+    - name: Terraform Init
+      id: init
+      working-directory: ./dev/infra
+      run: terraform init -input=false
+
+    - name: Terraform apply
+      id: apply
+      working-directory: ./dev/infra
+      run: terraform apply -auto-approve
+
+    
+        
